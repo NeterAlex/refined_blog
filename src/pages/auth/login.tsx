@@ -1,4 +1,4 @@
-import {Anchor, Box, Button, Container, Paper, PasswordInput, SegmentedControl, Text, TextInput, Title,} from '@mantine/core';
+import {Anchor, Box, Button, Container, Paper, PasswordInput, Text, TextInput, Title,} from '@mantine/core';
 import {useRouter} from "next/router";
 import React, {useState} from "react";
 import {hasLength, isNotEmpty, useForm} from "@mantine/form";
@@ -47,7 +47,7 @@ const LoginPage: Page = () => {
             </Text>
 
             <Paper withBorder shadow="md" p={30} mt={30} radius="md" component="form" onSubmit={form.onSubmit((data) => {
-                axios.post('/user/login', qs.stringify(data), {}).catch(e => {
+                axios.post('/v1/auth/login', qs.stringify(data), {}).catch(e => {
                     if (e.response.status === 401) {
                         notifications.show({title: '登录错误', message: '用户与密码不匹配', color: 'red'})
                         return Promise.reject('Failed to login')
@@ -62,7 +62,7 @@ const LoginPage: Page = () => {
                     router.push('/')
                 })
             })}>
-                <SegmentedControl fullWidth value={mode} onChange={setMode} data={[{label: '用户名', value: 'username'}, {label: '邮箱', value: 'email'}]}/>
+                {/*<SegmentedControl fullWidth value={mode} onChange={setMode} data={[{label: '用户名', value: 'username'}, {label: '邮箱', value: 'email'}]}/>*/}
                 <TextInput mt="md" label={mode === 'email' ? "电子邮件" : "用户名"} placeholder={mode === 'email' ? "account@example.com" : "用户名"} required
                            withAsterisk {...form.getInputProps('username')}/>
                 <PasswordInput label="密码" placeholder="密码" required mt="md" withAsterisk {...form.getInputProps('password')}/>

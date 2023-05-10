@@ -148,7 +148,7 @@ const RegisterPage: Page = () => {
             </Text>
 
             <Paper withBorder shadow="md" p={30} mt={30} radius="md" component="form" onSubmit={form.onSubmit((data) => {
-                axios.post('/user/register', qs.stringify(data), {}).catch(e => {
+                axios.post('/v1/user/create/', qs.stringify(data), {}).catch(e => {
                     notifications.show({title: '注册错误', message: e.response.message, color: 'red'})
                     return Promise.reject('Failed to register')
                 }).then((r) => {

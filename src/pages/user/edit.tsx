@@ -34,7 +34,7 @@ const UserPage: Page = () => {
 
     return (
         <animated.div style={springs}>
-            <UserEditor uid={user.data.list.ID} nickname={user.data.list.nickname} email={user.data.list.email} username={user.data.list.username}/>
+            <UserEditor uid={user.users[0].id} nickname={user.users[0].nickname} email={user.users[0].email} username={user.users[0].username}/>
         </animated.div>
 
     )

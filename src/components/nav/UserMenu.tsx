@@ -58,7 +58,7 @@ export default function UserMenu() {
                         <UserAvatar email={""} image={''} nickname={"Guest"}/>
                     </Menu.Target>
                     <Menu.Dropdown>
-                        <Menu.Label>{currentUser.uid === '0' ? 'Guest' : user.users.nickname}</Menu.Label>
+                        <Menu.Label>{currentUser.uid === '0' ? 'Guest' : user.users[0].nickname}</Menu.Label>
                         <Menu.Item icon={colorScheme === 'light' ? <IconMoon size={14}/> : <IconSun size={14}/>} onClick={() => toggleColorScheme()}>
                             {colorScheme === 'light' ? '夜间模式' : '日间模式'}
                         </Menu.Item>
@@ -79,7 +79,7 @@ export default function UserMenu() {
                     <UserAvatar email={""} image={currentUser.uid !== '0' ? `http://localhost:8022/static/avatar/${currentUser.uid}.jpg` : ''} nickname={""}/>
                 </Menu.Target>
                 <Menu.Dropdown>
-                    <Menu.Label>{currentUser.uid === '0' ? 'Guest' : user.users.nickname}</Menu.Label>
+                    <Menu.Label>{currentUser.uid === '0' ? 'Guest' : user.users[0].nickname}</Menu.Label>
                     {
                         currentUser.uid !== '0' ? <Menu.Item icon={<IconSettings size={14}/>} onClick={() => router.push(`/user/edit`)}>设置</Menu.Item> : <></>
                     }
@@ -90,7 +90,7 @@ export default function UserMenu() {
                     <Menu.Divider/>
                     <Menu.Label>管理</Menu.Label>
                     {
-                        user.users.ID === 1 && currentUser.uid === '1' ? (
+                        user.users[0].id === 1 && currentUser.uid === '1' ? (
                             <Menu.Item icon={<IconDashboard size={14}/>} onClick={() => router.push('/admin/dashboard')}>管理面板</Menu.Item>
                         ) : (<></>)
                     }

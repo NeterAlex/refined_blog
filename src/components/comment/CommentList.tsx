@@ -1,9 +1,9 @@
-import useSWR from "swr";
 import {Container, Skeleton} from "@mantine/core";
 import {CommentCard} from "@/components/comment/CommentCard";
 import CommentArea from "@/components/comment/CommentArea";
 import {UserAtom} from "@/store/User";
 import {useAtom} from "jotai";
+import {useComment} from "@/hooks/Request";
 
 interface Props {
     pid?: string
@@ -16,7 +16,7 @@ function dateToString(d: string) {
 
 export default function CommentList({pid}: Props) {
     //SWR
-    const {data, isLoading, error} = useSWR(`/api/v1/post/${pid}/comment`)
+    const {comments, isLoading, error} = useComment(typeof pid === "string" ? pid : "0")
 
     //Getter
     const [currentUser, setCurrentUser] = useAtom(UserAtom)
@@ -39,9 +39,9 @@ export default function CommentList({pid}: Props) {
             <CommentArea image={currentUser.uid !== '0' ? `http://localhost:8022/static/avatar/${currentUser.uid}.jpg` : ''} uid={currentUser.uid}
                          pid={typeof pid === 'string' ? pid : '0'}/>
             {
-                data.data.list.map((comment: any, i: any) => (
+                comments.comments.map((comment: any, i: any) => (
                     <CommentCard key={i + 1} uid={comment.userID} author={comment.author} image={`http://localhost:8022/static/avatar/${comment.userID}.jpg`} body={comment.content}
-                                 postedAt={dateToString(comment.CreatedAt)}></CommentCard>
+                                 postedAt={comment.date}></CommentCard>
                 ))
             }
         </Container>

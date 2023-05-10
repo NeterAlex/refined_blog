@@ -90,6 +90,11 @@ export function useTokenRequest(key: string, data: any, success: NotificationPro
 
 // Queries
 
+export function useComment(pid: string) {
+    const {data, error, isLoading} = useSWR(`/v1/comment/query/?id=${pid}&page=1&page_size=1000`)
+    return {comments: data, isLoading, error}
+}
+
 export function useBasicUser(uid: string) {
     const {data, error, isLoading} = useSWR(`/user/${uid}/basic`)
     return {user: data, isLoading, error}
