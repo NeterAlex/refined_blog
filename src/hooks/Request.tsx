@@ -95,11 +95,6 @@ export function useComment(pid: string) {
     return {comments: data, isLoading, error}
 }
 
-export function useBasicUser(uid: string) {
-    const {data, error, isLoading} = useSWR(`/user/${uid}/basic`)
-    return {user: data, isLoading, error}
-}
-
 export function useUser(uid: string) {
     const {data, error, isLoading} = useSWR(`/v1/user/query/?page=1&page_size=1&id=${uid}`)
     return {user: data, isLoading, error}
@@ -118,11 +113,6 @@ export function usePost(pid: string) {
 export function usePostList(index: number, size: number) {
     const {data, isLoading, error} = useSWR(`/v1/post/query/?id=0&page=${index}&page_size=${size}`)
     return {posts: data, isLoading, error}
-}
-
-export function usePostWithComment(pid: string) {
-    const {data, error, isLoading} = useSWR(`/api/v1/post/${pid}/all`)
-    return {post: data, isLoading, error}
 }
 
 export function useAllUsers() {

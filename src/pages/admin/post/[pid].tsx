@@ -16,9 +16,9 @@ const PostEdit: Page = () => {
 
     return (
         <>
-            <PostEditor author={post.data.list.author} content={post.data.list.content} date={post.data.list.date} image_url={post.data.list.image_url}
+            <PostEditor author={post.posts[0].author} content={post.posts[0].content} date={post.posts[0].date} image_url={post.posts[0].image_url}
                         pid={typeof pid === 'string' ? pid : '0'}
-                        tags={post.data.list.tags} title={post.data.list.title}/>
+                        tags={post.posts[0].tags} title={post.posts[0].title}/>
         </>
     )
 }

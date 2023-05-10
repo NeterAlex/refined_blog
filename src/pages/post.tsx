@@ -21,7 +21,7 @@ const PostPage: Page = () => {
         <Container mt={rem(30)}>
             <animated.div style={springs}>
                 <SimpleGrid my={rem(30)} cols={2} spacing="md" breakpoints={[{maxWidth: 'sm', cols: 1}]}>
-                    <Image alt={'preview'} radius={'md'} src={latest.post.image_url}/>
+                    <Image alt={'preview'} height={"35vh"} radius={'md'} src={latest.post.image_url}/>
                     <Stack spacing={2} justify={'space-between'}>
                         <Stack spacing={5}>
                             <Text ml={19} c={'dimmed'} size={'sm'}>{latest.post.date}</Text>

@@ -55,10 +55,10 @@ export default function StatsCards() {
         )
     }
     const data = [
-        {title: '文章', icon: 'post', value: stat.data.post_count, diff: -14},
-        {title: '评论', icon: 'comment', value: stat.data.comment_count, diff: -14},
-        {title: '用户', icon: 'user', value: stat.data.user_count, diff: 14},
-        {title: '访问', icon: 'view', value: stat.data.total_viewed, diff: -14},]
+        {title: '文章', icon: 'post', value: stat.stat.post_count, diff: -14},
+        {title: '评论', icon: 'comment', value: stat.stat.comment_count, diff: -14},
+        {title: '用户', icon: 'user', value: stat.stat.user_count, diff: 14},
+        {title: '访问', icon: 'view', value: stat.stat.total_viewed, diff: -14},]
 
     const stats = data.map((stat) => {
         // @ts-ignore

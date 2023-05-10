@@ -6,6 +6,7 @@ import 'md-editor-rt/lib/style.css';
 import MdEditor from "md-editor-rt";
 import {useState} from "react";
 import {usePost, useTokenUpdate} from "@/hooks/Request";
+import {GetTimeNow} from "@/function/Time";
 
 interface Props {
     pid: string
@@ -33,7 +34,7 @@ export default function PostEditor(props: Props) {
         }
     })
 
-    const {trigTokenUpdate} = useTokenUpdate(`/api/v1/post/${props.pid}`, form.values, {title: '文章更新成功', message: '将返回文章列表', color: 'green'})
+    const {trigTokenUpdate} = useTokenUpdate(`/v1/post/update/${props.pid}`, form.values, {title: '文章更新成功', message: '将返回文章列表', color: 'green'})
 
     if (isLoading || error) {
         return <Progress/>
@@ -51,10 +52,7 @@ export default function PostEditor(props: Props) {
                     <TextInput icon={<IconTags/>} w={180} placeholder={'Tag1, Tag2...'} required withAsterisk{...form.getInputProps('tags')}></TextInput>
                     <TextInput icon={<IconCalendar/>} w={180} rightSection={
                         <ActionIcon variant="light" onClick={() => {
-                            const d = new Date()
-                            const month = d.getMonth() > 8 ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)
-                            const day = d.getDate() > 9 ? d.getDate() : '0' + d.getDate()
-                            form.setFieldValue('date', `${d.getFullYear()}-${month}-${day}`)
+                            form.setFieldValue('date', GetTimeNow())
                         }}>
                             <IconCircleLetterN/>
                         </ActionIcon>

@@ -87,6 +87,7 @@ export default function UserEditor(props: Props) {
                         <Button disabled={newPassword !== form.values.password} fullWidth mt="xl" type="submit">
                             修改
                         </Button>
+                        
                     </Paper>
 
                     <Paper withBorder p={30} mt={30} radius="md" component="form" onSubmit={async () => {

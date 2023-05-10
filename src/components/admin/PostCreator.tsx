@@ -5,9 +5,10 @@ import {isNotEmpty, useForm} from "@mantine/form";
 import 'md-editor-rt/lib/style.css';
 import MdEditor from "md-editor-rt";
 import {useState} from "react";
-import {useBasicUser, useTokenRequest} from "@/hooks/Request";
+import {useTokenRequest, useUser} from "@/hooks/Request";
 import {useAtom} from "jotai";
 import {UserAtom} from "@/store/User";
+import {GetTimeNow} from "@/function/Time";
 
 export function PostCreate() {
     const theme = useMantineTheme();
@@ -15,7 +16,7 @@ export function PostCreate() {
     const editorId = 'creator'
     const [text, setText] = useState('');
     const [currentUser, setCurrentUser] = useAtom(UserAtom)
-    const {user, isLoading, error} = useBasicUser(currentUser.uid);
+    const {user, isLoading, error} = useUser(currentUser.uid);
     const form = useForm({
         initialValues: {title: '', content: '', author: '', date: '', tags: '', image_url: ''},
         validate: {
@@ -24,7 +25,7 @@ export function PostCreate() {
             image_url: isNotEmpty('请输入题图url')
         }
     })
-    const {trigTokenRequest} = useTokenRequest('/api/v1/post/create', form.values, {title: '文章创建成功', message: '将返回文章列表', color: 'green'})
+    const {trigTokenRequest} = useTokenRequest('/v1/post/create/', form.values, {title: '文章创建成功', message: '将返回文章列表', color: 'green'})
     if (isLoading || error) {
         return <Progress/>
     }
@@ -39,10 +40,7 @@ export function PostCreate() {
                     <TextInput icon={<IconTags/>} w={180} placeholder={'Tag1, Tag2...'} required withAsterisk{...form.getInputProps('tags')}></TextInput>
                     <TextInput icon={<IconCalendar/>} w={180} rightSection={
                         <ActionIcon variant="light" onClick={() => {
-                            const d = new Date()
-                            const month = d.getMonth() > 8 ? d.getMonth() + 1 : '0' + (d.getMonth() + 1)
-                            const day = d.getDate() > 9 ? d.getDate() : '0' + d.getDate()
-                            form.setFieldValue('date', `${d.getFullYear()}-${month}-${day}`)
+                            form.setFieldValue('date', GetTimeNow())
                         }}>
                             <IconCircleLetterN/>
                         </ActionIcon>
@@ -60,13 +58,13 @@ export function PostCreate() {
                 <Divider my={'md'}/>
                 <Group position={"apart"} my={'md'}>
                     <Badge size="lg" radius="md">
-                        {user.data.list.nickname}
+                        {user.users[0].nickname}
                     </Badge>
                     <Group>
                         <IconMarkdown size={25} color={theme.colorScheme === 'light' ? "black" : "#909296"}/>
-                        <Button disabled={user.data.list.class === 'guest'} leftIcon={<IconUpload size={15}/>} onClick={() => {
+                        <Button disabled={user.users[0].status === 'guest'} leftIcon={<IconUpload size={15}/>} onClick={() => {
                             form.setFieldValue('content', text)
-                            form.setFieldValue('author', user.data.list.username)
+                            form.setFieldValue('author', user.users[0].username)
                         }} type="submit">提交</Button>
                     </Group>
 

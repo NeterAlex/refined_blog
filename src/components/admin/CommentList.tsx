@@ -1,4 +1,4 @@
-import {Accordion, ActionIcon, Avatar, Badge, Button, Center, Checkbox, Container, Group, Input, Paper, Popover, Skeleton, Table, Text, useMantineTheme,} from '@mantine/core';
+import {Accordion, ActionIcon, Avatar, Badge, Button, Center, Checkbox, Container, Group, Input, Paper, Popover, Skeleton, Table, Text,} from '@mantine/core';
 import {IconArticle, IconInfoCircle, IconSearch, IconTrash} from '@tabler/icons-react';
 import {useAllPosts, useTokenDelete} from "@/hooks/Request";
 import {useRouter} from "next/router";
@@ -12,7 +12,7 @@ interface ConfirmPopupProps {
 function ConfirmPopup(props: ConfirmPopupProps) {
     const [deletable, setDeletable] = useState(false)
     const router = useRouter()
-    const {trigTokenDelete} = useTokenDelete(`/api/v1/post/${props.pid}/comment/${props.cid}`, {title: '评论删除成功', message: '', color: 'green'})
+    const {trigTokenDelete} = useTokenDelete(`/v1/comment/delete/${props.cid}`, {title: '评论删除成功', message: '', color: 'green'})
     return (
         <>
             <Group position={"apart"} mb={'md'}>
@@ -33,37 +33,36 @@ function ConfirmPopup(props: ConfirmPopupProps) {
 
 
 export function CommentList() {
-    const theme = useMantineTheme();
     const router = useRouter()
     const {posts, isLoading, error} = useAllPosts()
     const [search, setSearch] = useState('')
     if (isLoading || error) {
         return <Skeleton h={300} animate={true}/>
     }
-
-    const items = [...posts.data.list].filter((v) => {
-        if (v.title.includes(search) || v.date.includes(search) || v.tags.includes(search)) {
-            return v
+    console.log(posts.posts)
+    const items = [...posts.posts].filter((i: any) => {
+        if (i.title.includes(search) || i.date.includes(search) || i.tags.includes(search)) {
+            return i
         }
     }).reverse().filter((item: any) => {
-        if (item.comment.length !== 0) {
+        if (item.comments.length > 0) {
             return item
         }
     }).map((item: any) => (
-        <Accordion.Item key={item.ID} value={`${item.ID}`}>
+        <Accordion.Item key={item.id} value={`${item.id}`}>
             <Accordion.Control>
                 <Group position={'apart'}>
                     <Group>
                         <IconArticle stroke={1}/>
                         <Text>{item.title}</Text>
                     </Group>
-                    <Badge>{item.comment.length}</Badge>
+                    <Badge>{item.comments.length}</Badge>
                 </Group>
 
             </Accordion.Control>
             <Accordion.Panel>
                 {
-                    item.comment.length === 0 ? (
+                    item.comments.length === 0 ? (
                         <Center>
                             <Text size={'sm'}>还没有评论</Text>
                         </Center>
@@ -72,20 +71,20 @@ export function CommentList() {
                         <Table sx={{minWidth: 600}} verticalSpacing="sm">
                             <thead>
                             <tr>
-                                <th>作者</th>
+                                <th>日期</th>
                                 <th>内容</th>
+                                <th>作者</th>
                                 <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             {
-                                item.comment.map((comment: any) => (
-                                    <tr key={comment.ID}>
+                                item.comments.map((comment: any) => (
+                                    <tr key={comment.id}>
                                         <td>
-                                            <Group spacing={10}>
-                                                <Avatar src={`http://localhost:8022/static/avatar/${comment.userID}.jpg`}/>
-                                                <Text c={'dimmed'} size={'sm'}>{comment.author}</Text>
-                                            </Group>
+                                            <Text fz="sm" c="dimmed">
+                                                {comment.date}
+                                            </Text>
                                         </td>
                                         <td>
                                             <Text fz="sm" c="dimmed">
@@ -93,15 +92,21 @@ export function CommentList() {
                                             </Text>
                                         </td>
                                         <td>
+                                            <Group spacing={10}>
+                                                <Avatar src={`http://localhost:8022/static/avatar/${comment.userID}.jpg`}/>
+                                                <Text c={'dimmed'} size={'sm'}>{comment.author}</Text>
+                                            </Group>
+                                        </td>
+                                        <td>
                                             <Group spacing={0} position="right">
                                                 <Popover width={300} trapFocus position="bottom" withArrow shadow="md">
                                                     <Popover.Target>
-                                                        <ActionIcon onClick={() => router.push(`/admin/post/${item.ID}`)}>
+                                                        <ActionIcon onClick={() => router.push(`/admin/post/${item.id}`)}>
                                                             <IconTrash size="1rem" color={'red'} stroke={1.5}/>
                                                         </ActionIcon>
                                                     </Popover.Target>
                                                     <Popover.Dropdown sx={(theme) => ({background: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white})}>
-                                                        <ConfirmPopup cid={comment.ID} pid={item.ID}/>
+                                                        <ConfirmPopup cid={comment.id} pid={item.id}/>
                                                     </Popover.Dropdown>
                                                 </Popover>
                                             </Group>

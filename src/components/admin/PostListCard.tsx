@@ -9,11 +9,11 @@ export function PostListCard() {
     if (isLoading || error) {
         return <Skeleton h={300} animate={true}/>
     }
-    const rows = [...posts.data.list].reverse().map((item: any) => (
-        <tr key={item.ID}>
+    const rows = [...posts.posts].reverse().map((item: any) => (
+        <tr key={item.id}>
             <td>
                 <Group spacing="sm">
-                    <Text component={Link} href={`/post/${item.ID}`} fz="sm" fw={500}>
+                    <Text component={Link} href={`/post/${item.id}`} fz="sm" fw={500}>
                         {item.title}
                     </Text>
                 </Group>

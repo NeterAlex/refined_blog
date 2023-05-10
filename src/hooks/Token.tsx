@@ -9,6 +9,6 @@ export function useDecodedToken(token: string) {
 }
 
 export function usePermissionChecker() {
-    const {data, error, isLoading} = useSWR('/user/trig')
+    const {data, error, isLoading} = useSWR('/v1/user/verify')
     return {result: data, isLoading, error}
 }

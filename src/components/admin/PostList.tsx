@@ -13,7 +13,7 @@ interface ConfirmPopupProps {
 function ConfirmPopup(props: ConfirmPopupProps) {
     const [deletable, setDeletable] = useState(false)
     const router = useRouter()
-    const {trigTokenDelete} = useTokenDelete(`/api/v1/post/${props.pid}`, {title: '文章删除成功', message: '', color: 'green'})
+    const {trigTokenDelete} = useTokenDelete(`/v1/post/delete/${props.pid}`, {title: '文章删除成功', message: '', color: 'green'})
     return (
         <>
             <Group position={"apart"} mb={'md'}>
@@ -43,15 +43,15 @@ export function PostList() {
         return <Skeleton h={300} animate={true}/>
     }
 
-    const rows = [...posts.data.list].filter((v) => {
+    const rows = [...posts.posts].filter((v) => {
         if (v.title.includes(search) || v.date.includes(search) || v.tags.includes(search)) {
             return v
         }
     }).reverse().map((item: any) => (
-        <tr key={item.ID}>
+        <tr key={item.id}>
             <td>
                 <Group spacing="sm">
-                    <Text component={Link} href={`/post/${item.ID}`} fz="sm" fw={500}>
+                    <Text component={Link} href={`/post/${item.id}`} fz="sm" fw={500}>
                         {item.title}
                     </Text>
                 </Group>
@@ -83,16 +83,16 @@ export function PostList() {
                 <Group spacing={0} position="right">
                     <Popover width={300} trapFocus position="bottom" withArrow shadow="md">
                         <Popover.Target>
-                            <ActionIcon onClick={() => router.push(`/admin/post/${item.ID}`)}>
+                            <ActionIcon onClick={() => router.push(`/admin/post/${item.id}`)}>
                                 <IconTrash size="1rem" color={'red'} stroke={1.5}/>
                             </ActionIcon>
                         </Popover.Target>
                         <Popover.Dropdown sx={(theme) => ({background: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white})}>
-                            <ConfirmPopup pid={item.ID} title={item.title}/>
+                            <ConfirmPopup pid={item.id} title={item.title}/>
                         </Popover.Dropdown>
                     </Popover>
 
-                    <ActionIcon onClick={() => router.push(`/admin/post/${item.ID}`)}>
+                    <ActionIcon onClick={() => router.push(`/admin/post/${item.id}`)}>
                         <IconPencil size="1rem" stroke={1.5}/>
                     </ActionIcon>
                 </Group>
