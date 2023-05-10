@@ -1,0 +1,27 @@
+.react-captcha {
+    display: flex !important;
+    align-items: center !important;
+    width: fit-content !important;
+    padding: 10px !important;
+}
+
+.react-captcha-icon-wrapper:active {
+    background-color: #f8f9fa !important;
+}
+
+.react-captcha-canvas {
+    padding: 0 !important;
+}
+
+.react-captcha-icon-wrapper {
+    padding: 5px !important;
+    margin: 5px !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+.react-captcha-icon {
+    color: #878e95 !important;
+    margin: 0 !important;
+    padding: 0 3px 0 0 !important;
+}
