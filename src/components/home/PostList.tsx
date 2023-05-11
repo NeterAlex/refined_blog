@@ -24,7 +24,8 @@ export default function HomePostList() {
 
     return (
         <Stack w={"100%"}>
-            <Carousel slideSize="33%" height={280} align="start" slideGap="md" controlsOffset="md" breakpoints={[{maxWidth: 'sm', slideSize: '100%', slideGap: rem(2)}]} dragFree>
+            <Carousel slideSize="33.33%" height={280} align="start" slideGap="md" controlsOffset="md" breakpoints={[{maxWidth: 'sm', slideSize: '100%', slideGap: rem(2)}]}
+                      dragFree>
                 {
                     data.map((post: any) => (
                         <Carousel.Slide key={post.id}>
