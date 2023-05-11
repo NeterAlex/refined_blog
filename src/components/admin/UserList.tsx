@@ -13,7 +13,7 @@ interface ConfirmPopupProps {
 function ConfirmPopup(props: ConfirmPopupProps) {
     const [deletable, setDeletable] = useState(false)
     const router = useRouter()
-    const {trigTokenDelete} = useTokenDelete(`/user/${props.uid}`, {title: '用户删除成功', message: '', color: 'green'})
+    const {trigTokenDelete} = useTokenDelete(`/v1/user/delete/${props.uid}`, {title: '用户删除成功', message: '', color: 'green'})
     return (
         <>
             <Group position={"apart"} mb={'md'}>
@@ -43,21 +43,21 @@ export function UserList() {
         return <Skeleton h={300} animate={true}/>
     }
 
-    const rows = [...users.data.list].filter((v) => {
+    const rows = [...users.users].filter((v) => {
         if (v.username.includes(search) || v.nickname.includes(search) || v.email.includes(search)) {
             return v
         }
     }).map((item: any) => (
-        <tr key={item.ID}>
+        <tr key={item.id}>
             <td>
                 <Badge variant={theme.colorScheme === 'dark' ? 'light' : 'outline'}>
-                    {item.ID}
+                    {item.id}
                 </Badge>
             </td>
             <td>
                 <Group spacing="sm">
-                    <Avatar src={`http://localhost:8022/static/avatar/${item.ID}.jpg`}/>
-                    <Text c="dimmed" component={Link} href={`/post/${item.ID}`} fz="sm" fw={500}>
+                    <Avatar src={`http://localhost:8022/static/avatar/${item.id}.jpg`}/>
+                    <Text c="dimmed" component={Link} href={`/post/${item.id}`} fz="sm" fw={500}>
                         {item.username}
                     </Text>
                 </Group>
@@ -74,20 +74,20 @@ export function UserList() {
                 </Text>
             </td>
             <td>
-                <Badge color={item.class === 'admin' ? 'red' : 'blue'}>
-                    {item.class}
+                <Badge color={item.status === 'admin' ? 'red' : 'blue'}>
+                    {item.status}
                 </Badge>
             </td>
             <td>
                 <Group spacing={0} position="right">
                     <Popover width={300} trapFocus position="bottom" withArrow shadow="md">
                         <Popover.Target>
-                            <ActionIcon disabled={item.class === 'admin'}>
-                                <IconBan size="1rem" color={item.class === 'admin' ? 'gray' : 'red'} stroke={1.5}/>
+                            <ActionIcon disabled={item.status === 'admin'}>
+                                <IconBan size="1rem" color={item.status === 'admin' ? 'gray' : 'red'} stroke={1.5}/>
                             </ActionIcon>
                         </Popover.Target>
                         <Popover.Dropdown sx={(theme) => ({background: theme.colorScheme === 'dark' ? theme.colors.dark[7] : theme.white})}>
-                            <ConfirmPopup uid={item.ID} username={item.username}/>
+                            <ConfirmPopup uid={item.id} username={item.username}/>
                         </Popover.Dropdown>
                     </Popover>
 
@@ -103,7 +103,7 @@ export function UserList() {
                 <Group spacing={5}>
                     <IconUsers size={17}/>
                     <Text c={'dimmed'} size={'sm'}>
-                        总用户数：{users.data.count}
+                        总用户数：{users.total}
                     </Text>
                 </Group>
             </Group>

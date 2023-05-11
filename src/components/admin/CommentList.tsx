@@ -39,7 +39,6 @@ export function CommentList() {
     if (isLoading || error) {
         return <Skeleton h={300} animate={true}/>
     }
-    console.log(posts.posts)
     const items = [...posts.posts].filter((i: any) => {
         if (i.title.includes(search) || i.date.includes(search) || i.tags.includes(search)) {
             return i
