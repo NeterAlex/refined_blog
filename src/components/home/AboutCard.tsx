@@ -1,7 +1,8 @@
-import {Avatar, Card, createStyles, Group, Progress, rem, Text} from '@mantine/core';
+import {Avatar, Card, Container, createStyles, Divider, Group, Progress, rem, Text} from '@mantine/core';
 import {useStatCounts} from "@/hooks/Request";
 import MdEditor from "md-editor-rt";
 import 'md-editor-rt/lib/style.css';
+import {IconBrandGolang, IconBrandMantine, IconBrandNextjs, IconBrandReact, IconBrandTypescript} from "@tabler/icons-react";
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -33,14 +34,11 @@ export function AboutCard({image, avatar, name, job}: UserCardImageProps) {
         '音乐口味比较偏向古典，会演奏二胡和钢琴，偏爱弦乐器。\n' +
         '除此之外，我还是一个JRPG爱好者，\n' +
         '欢迎一起交流。\n' +
-        '## 关于本站\n' +
-        '本站由`Go + Hertz`，`Next.js + React`共同构建，\n' +
-        '目前部署在阿里云上，\n' +
-        '还在不断迭代更新。' +
         '\n' +
         '## 如何联系我\n' +
         '邮件：`neteralex@foxmail.com`\n' +
         'Github：[Github](https://github.com/NeterAlex)'
+
     const {stat, isLoading, error} = useStatCounts()
     if (isLoading || error) {
         return <Progress></Progress>
@@ -75,6 +73,19 @@ export function AboutCard({image, avatar, name, job}: UserCardImageProps) {
                 </Group>
             </Group>
             <MdEditor editorId={editorId} theme={theme.colorScheme} modelValue={data} previewOnly={true} previewTheme={"github"}/>
+            <Divider my={20}/>
+            <Container>
+                <Group position={"apart"}>
+                    <Text size={"sm"}>Refined build with</Text>
+                    <Group>
+                        <IconBrandTypescript/>
+                        <IconBrandNextjs/>
+                        <IconBrandReact/>
+                        <IconBrandMantine/>
+                        <IconBrandGolang/>
+                    </Group>
+                </Group>
+            </Container>
         </Card>
     );
 }

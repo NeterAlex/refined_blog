@@ -37,7 +37,7 @@ const LoginPage: Page = () => {
     })
 
     return (
-        <Container size={420} mt={120}>
+        <Container size={420} mt={120} mb={160}>
             <Title align="center" sx={(theme: any) => ({fontFamily: `${theme.fontFamily}`, fontWeight: 900})}>
                 欢迎
             </Title>
@@ -46,7 +46,7 @@ const LoginPage: Page = () => {
                 <Anchor size="sm" component="button" onClick={() => router.push('/auth/register')}>注册</Anchor>
             </Text>
 
-            <Paper withBorder shadow="md" p={30} mt={30} radius="md" component="form" onSubmit={form.onSubmit((data) => {
+            <Paper withBorder shadow="md" p={30} my={30} radius="md" component="form" onSubmit={form.onSubmit((data) => {
                 axios.post('/v1/auth/login', qs.stringify(data), {}).catch(e => {
                     if (e.response.status === 401) {
                         notifications.show({title: '登录错误', message: '用户与密码不匹配', color: 'red'})
@@ -85,7 +85,6 @@ const LoginPage: Page = () => {
             </Paper>
         </Container>
     )
-        ;
 }
 
 export default LoginPage

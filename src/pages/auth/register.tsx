@@ -128,7 +128,7 @@ const RegisterPage: Page = () => {
         initialValues: {username: '', password: '', nickname: '', email: ''},
         validate: {
             username: isNotEmpty('请设置用户名') && matches(/^[a-z0-9_-]{6,15}$/, '用户名只应包含大小写字母和数字，且在6-15位间'),
-            password: hasLength({min: 6, max: 18}, '密码长度必须为6-18位'),
+            password: hasLength({min: 7, max: 18}, '密码长度必须为7-18位'),
             nickname: isNotEmpty('请设置昵称'),
             email: isEmail('请输入正确的邮箱地址'),
         }
@@ -149,19 +149,20 @@ const RegisterPage: Page = () => {
 
             <Paper withBorder shadow="md" p={30} mt={30} radius="md" component="form" onSubmit={form.onSubmit((data) => {
                 axios.post('/v1/user/create/', qs.stringify(data), {}).catch(e => {
-                    notifications.show({title: '注册错误', message: e.response.message, color: 'red'})
+                    notifications.show({title: '注册错误', message: e.response.Msg, color: 'red'})
+                    console.log(e)
                     return Promise.reject('Failed to register')
                 }).then((r) => {
                     notifications.show({title: '注册成功', message: '请登录', color: 'green'})
                     router.push('/auth/login')
                 })
             })}>
-                <TextInput mt="md" label={"用户名"} placeholder={'用于登录的账号'} required
+                <TextInput mt="md" label={"用户名"} required
                            withAsterisk {...form.getInputProps('username')}/>
-                <PasswordInput label="密码" placeholder="登录凭证" required mt="md" withAsterisk {...form.getInputProps('password')}/>
-                <TextInput mt="md" label={"电子邮件"} placeholder={'用于联系以及登陆账号'} required
+                <PasswordInput label="密码" required mt="md" withAsterisk {...form.getInputProps('password')}/>
+                <TextInput mt="md" label={"电子邮件"} required
                            withAsterisk {...form.getInputProps('email')}/>
-                <TextInput mt="md" label={"昵称"} placeholder={'显示的用户名称'} required
+                <TextInput mt="md" label={"昵称"} required
                            withAsterisk {...form.getInputProps('nickname')}/>
 
                 <TextInput width={'100%'} rightSection={
