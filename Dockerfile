@@ -1,15 +1,22 @@
-FROM node:lts-alpine
-
-RUN npm install -g pnpm
-
+FROM node:alpine
 WORKDIR /app
 
-COPY package*.json ./
+ENV NODE_ENV production
+RUN npm install -g pnpm
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nextjs -u 1001
 
-RUN pnpm install --production
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
-COPY . .
+USER nextjs
 
-EXPOSE 8080
+EXPOSE 3000
 
-CMD [ "pnpm", "run", "start" ]
+ENV PORT 3000
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+CMD ["node_modules/.bin/next", "start"]

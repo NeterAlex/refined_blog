@@ -50,6 +50,8 @@ export default function UserEditor(props: Props) {
         }
     });
     const {trigTokenUpdate} = useTokenUpdate(`/v1/user/update/${props.uid}`, form.values, {title: "用户信息更新成功", message: "将返回首页", color: "green"});
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     return (
         <Container mt={"xl"}>
             <Card withBorder shadow="sm" mt={30} radius="md">
@@ -87,7 +89,7 @@ export default function UserEditor(props: Props) {
                         <Button disabled={newPassword !== form.values.password} fullWidth mt="xl" type="submit">
                             修改
                         </Button>
-                        
+
                     </Paper>
 
                     <Paper withBorder p={30} mt={30} radius="md" component="form" onSubmit={async () => {
@@ -120,7 +122,7 @@ export default function UserEditor(props: Props) {
                     }}>
                         <Group position={"apart"}>
                             <Stack>
-                                <Avatar size={"xl"} src={`http://localhost:8022/static/avatar/${props.uid}.jpg`}></Avatar>
+                                <Avatar size={"xl"} src={`${globalBase}/static/avatar/${props.uid}.jpg`}></Avatar>
                             </Stack>
                             <Group>
                                 <Text c={"dimmed"}>{props.nickname}</Text>

@@ -43,7 +43,8 @@ export default function UserMenu() {
     const router = useRouter()
     const [currentUser, setCurrentUser] = useAtom(UserAtom)
     const {user, error, isLoading} = useUser(currentUser.uid)
-
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     if (isLoading) {
         return (
             <Skeleton w={"10P0%"} height={"100%"} radius="xl" animate={true}/>
@@ -76,7 +77,7 @@ export default function UserMenu() {
         <Group position="center">
             <Menu withArrow>
                 <Menu.Target>
-                    <UserAvatar email={""} image={currentUser.uid !== '0' ? `http://localhost:8022/static/avatar/${currentUser.uid}.jpg` : ''} nickname={""}/>
+                    <UserAvatar email={""} image={currentUser.uid !== '0' ? `${globalBase}/static/avatar/${currentUser.uid}.jpg` : ''} nickname={""}/>
                 </Menu.Target>
                 <Menu.Dropdown>
                     <Menu.Label>{currentUser.uid === '0' ? 'Guest' : user.users[0].nickname}</Menu.Label>

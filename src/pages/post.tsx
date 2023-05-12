@@ -16,7 +16,8 @@ const PostPage: Page = () => {
     if (isLoading || error) {
         return <Skeleton animate={true} height={300} mt={30}></Skeleton>
     }
-
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     return (
         <Container mt={rem(30)}>
             <animated.div style={springs}>
@@ -33,7 +34,7 @@ const PostPage: Page = () => {
                             </Group>
                         </Stack>
                         <Button rightIcon={<IconArrowRight/>} variant="subtle" w={125} onClick={() => {
-                            fetch(`http://localhost:8022/api/v1/post/${latest.post.ID}/view`).then(res => res.json())
+                            fetch(`${globalBase}/v1/post/view/${latest.post.ID}`).then(res => res.json())
                             router.push(`/post/${latest.post.id}`)
                         }}>
                             阅读本文

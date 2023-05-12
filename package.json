@@ -2,10 +2,12 @@
   "name": "refined",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8022",
+  "proxy": "http://www.neteralex.cn",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "cross-env APP_ENV=dev next dev",
+    "dev:prod": "cross-env APP_ENV=production next dev",
+    "build": "cross-env APP_ENV=dev next build",
+    "build:prod": "cross-env APP_ENV=prodution next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -35,6 +37,7 @@
     "@types/react-dom": "18.0.11",
     "axios": "^1.4.0",
     "cookies-next": "^2.1.1",
+    "cross-env": "^7.0.3",
     "dayjs": "^1.11.7",
     "embla-carousel-react": "^7.1.0",
     "eslint": "8.38.0",

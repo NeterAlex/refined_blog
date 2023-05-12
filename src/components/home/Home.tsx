@@ -16,6 +16,8 @@ export default function Home() {
         from: {x: -70, opacity: 0},
         to: {x: 0, opacity: 1},
     })
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     if (isLoading || error) {
         return <Skeleton height={300} animate={true}/>
     }
@@ -31,7 +33,7 @@ export default function Home() {
                             <Center>
                                 <Group>
                                     <Button variant="white" color="dark" onClick={() => {
-                                        fetch(`http://localhost:8022/v1/post/view/${latest.post.id}`).then(res => res.json())
+                                        fetch(`${globalBase}/v1/post/view/${latest.post.id}`).then(res => res.json())
                                         router.push(`/post/${latest.post.id}`)
                                     }}>
                                         阅读本文

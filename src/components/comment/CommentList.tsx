@@ -21,6 +21,9 @@ export default function CommentList({pid}: Props) {
     //Getter
     const [currentUser, setCurrentUser] = useAtom(UserAtom)
 
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
+
     if (isLoading) {
         return (
             <Skeleton w={"100%"} height={300} radius="md" animate={true}/>
@@ -36,11 +39,11 @@ export default function CommentList({pid}: Props) {
 
     return (
         <Container mb={'md'}>
-            <CommentArea image={currentUser.uid !== '0' ? `http://localhost:8022/static/avatar/${currentUser.uid}.jpg` : ''} uid={currentUser.uid}
+            <CommentArea image={currentUser.uid !== '0' ? `${globalBase}/static/avatar/${currentUser.uid}.jpg` : ''} uid={currentUser.uid}
                          pid={typeof pid === 'string' ? pid : '0'}/>
             {
                 comments.comments.map((comment: any, i: any) => (
-                    <CommentCard key={i + 1} uid={comment.userID} author={comment.author} image={`http://localhost:8022/static/avatar/${comment.userID}.jpg`} body={comment.content}
+                    <CommentCard key={i + 1} uid={comment.userID} author={comment.author} image={`${globalBase}/static/avatar/${comment.userID}.jpg`} body={comment.content}
                                  postedAt={comment.date}></CommentCard>
                 ))
             }

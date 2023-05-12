@@ -8,11 +8,13 @@ const AboutPage: Page = () => {
         from: {y: -70, opacity: 0},
         to: {y: 0, opacity: 1},
     })
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     return (
         <animated.div style={springs}>
             <Container my="xl">
                 <AboutCard image={'https://images.pexels.com/photos/3648850/pexels-photo-3648850.jpeg?auto=compress&cs=tinysrgb&w=1600'}
-                           avatar={'http://localhost:8022/static/avatar/1.jpg'} name={'NeterAlex'} job={'Student'}/>
+                           avatar={`${globalBase}/static/avatar/1.jpg`} name={'NeterAlex'} job={'Student'}/>
             </Container>
         </animated.div>
 

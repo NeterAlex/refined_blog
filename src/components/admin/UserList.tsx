@@ -38,7 +38,8 @@ export function UserList() {
     const router = useRouter()
     const {users, isLoading, error} = useAllUsers()
     const [search, setSearch] = useState('')
-
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     if (isLoading || error) {
         return <Skeleton h={300} animate={true}/>
     }
@@ -56,7 +57,7 @@ export function UserList() {
             </td>
             <td>
                 <Group spacing="sm">
-                    <Avatar src={`http://localhost:8022/static/avatar/${item.id}.jpg`}/>
+                    <Avatar src={`${globalBase}/static/avatar/${item.id}.jpg`}/>
                     <Text c="dimmed" component={Link} href={`/post/${item.id}`} fz="sm" fw={500}>
                         {item.username}
                     </Text>

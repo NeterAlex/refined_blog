@@ -37,7 +37,8 @@ export default function RecentCard({height}: Props) {
     const {classes} = useStyles();
     const {latest, isLoading, error} = usePostLatest()
     const router = useRouter()
-
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     if (isLoading) {
         return (
             <Skeleton w={"100%"} height={height} radius="md" animate={true}/>
@@ -61,7 +62,7 @@ export default function RecentCard({height}: Props) {
                 </Title>
             </div>
             <Button variant="white" color="dark" onClick={() => {
-                fetch(`http://localhost:8022/v1/post/view/${latest.post.ID}`).then(res => res.json())
+                fetch(`${globalBase}/v1/post/view/${latest.post.ID}`).then(res => res.json())
                 router.push(`/post/${latest.post.id}`)
             }}>
                 阅读

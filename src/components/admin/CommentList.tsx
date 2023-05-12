@@ -36,6 +36,8 @@ export function CommentList() {
     const router = useRouter()
     const {posts, isLoading, error} = useAllPosts()
     const [search, setSearch] = useState('')
+    let appEnv = process.env.APP_ENV
+    const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     if (isLoading || error) {
         return <Skeleton h={300} animate={true}/>
     }
@@ -92,7 +94,7 @@ export function CommentList() {
                                         </td>
                                         <td>
                                             <Group spacing={10}>
-                                                <Avatar src={`http://localhost:8022/static/avatar/${comment.userID}.jpg`}/>
+                                                <Avatar src={`${globalBase}/static/avatar/${comment.userID}.jpg`}/>
                                                 <Text c={'dimmed'} size={'sm'}>{comment.author}</Text>
                                             </Group>
                                         </td>
