@@ -19,7 +19,21 @@ export default function Home() {
     let appEnv = process.env.APP_ENV
     const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     if (isLoading || error) {
-        return <Skeleton height={300} animate={true}/>
+        return (
+            <animated.div style={springs1}>
+                <Box>
+                    <Skeleton animate={true} mih={200} height={"40vh"}/>
+                    <animated.div style={springs2}>
+                        <Container my="md">
+                            <Banner title={'Loading'} height={'100'} link={'/'}/>
+                            <Center>
+                                <Skeleton animate={true} height={"30vh"}/>
+                            </Center>
+                        </Container>
+                    </animated.div>
+                </Box>
+            </animated.div>
+        )
     }
     return (
         <animated.div style={springs1}>

@@ -34,7 +34,27 @@ const PostPage: Page = () => {
 
     if (isLoading) {
         return (
-            <Skeleton w={"100%"} height={600} radius="md" animate={true}/>
+            <animated.div style={springs}>
+                <Container my="md">
+                    <Card shadow="md" radius="md" mt="xl">
+                        <Card.Section mb="xl">
+                            <Skeleton animate={true} height={180}/>
+                        </Card.Section>
+                        <Card.Section mb="md">
+                            <Group pl="xl" position="apart">
+                                <Skeleton animate={true} height={30}/>
+                            </Group>
+                        </Card.Section>
+                        <Divider/>
+                        <Skeleton animate={true} height={"60vh"}/>
+
+                        <Divider mt={'xl'}/>
+                        <Card.Section>
+                            <Skeleton animate={true} height={100}/>
+                        </Card.Section>
+                    </Card>
+                </Container>
+            </animated.div>
         )
     }
 

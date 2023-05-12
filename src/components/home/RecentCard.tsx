@@ -62,7 +62,7 @@ export default function RecentCard({height}: Props) {
                 </Title>
             </div>
             <Button variant="white" color="dark" onClick={() => {
-                fetch(`${globalBase}/v1/post/view/${latest.post.ID}`).then(res => res.json())
+                fetch(`${globalBase}/v1/post/view/${latest.post.id}`).then(res => res.json())
                 router.push(`/post/${latest.post.id}`)
             }}>
                 阅读

@@ -1,7 +1,7 @@
 import {Page} from "@/common/types";
 import {useRouter} from "next/router";
 import {useUser} from "@/hooks/Request";
-import {Container, rem, Skeleton} from "@mantine/core";
+import {Container, Paper, rem, Skeleton} from "@mantine/core";
 import UserEditor from "@/components/user/UserEditor";
 import {animated, useSpring} from "@react-spring/web";
 import {UserAtom} from "@/store/User";
@@ -22,7 +22,9 @@ const UserPage: Page = () => {
     if (isLoading || error) {
         return (
             <Container py={rem(50)}>
-                <Skeleton h={300} animate={true}/>
+                <Paper radius={"md"}>
+                    <Skeleton h={600} animate={true}/>
+                </Paper>
             </Container>
         )
     }

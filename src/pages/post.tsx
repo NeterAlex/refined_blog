@@ -34,7 +34,7 @@ const PostPage: Page = () => {
                             </Group>
                         </Stack>
                         <Button rightIcon={<IconArrowRight/>} variant="subtle" w={125} onClick={() => {
-                            fetch(`${globalBase}/v1/post/view/${latest.post.ID}`).then(res => res.json())
+                            fetch(`${globalBase}/v1/post/view/${latest.post.id}`).then(res => res.json())
                             router.push(`/post/${latest.post.id}`)
                         }}>
                             阅读本文

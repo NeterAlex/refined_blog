@@ -41,7 +41,7 @@ const ArchivePage: Page = () => {
                         <Timeline bulletSize={30}>
                             {
                                 [...posts.posts].reverse().map((post: any) => (
-                                    <Timeline.Item key={post.ID} bullet={<IconArticle size={20}/>} c={'dimmed'}>
+                                    <Timeline.Item key={post.id} bullet={<IconArticle size={20}/>} c={'dimmed'}>
                                         <Text color={'dimmed'} size={'sm'}>{post.date}</Text>
                                         <Text component={Link} color={'blue'} href={`/post/${post.id}`}>{post.title}</Text>
                                         {

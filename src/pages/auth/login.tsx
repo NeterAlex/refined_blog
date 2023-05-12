@@ -37,7 +37,7 @@ const LoginPage: Page = () => {
     })
 
     return (
-        <Container size={420} mt={120} mb={160}>
+        <Container size={420} mt={120} mb={220}>
             <Title align="center" sx={(theme: any) => ({fontFamily: `${theme.fontFamily}`, fontWeight: 900})}>
                 欢迎
             </Title>

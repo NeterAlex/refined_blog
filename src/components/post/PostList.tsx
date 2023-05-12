@@ -36,7 +36,7 @@ export default function PostList() {
                 <SimpleGrid w={"auto"} cols={2} spacing="md" breakpoints={[{maxWidth: 'sm', cols: 1}]}>
                     {
                         data.reverse().map((post: any) => (
-                            <PostCard key={post.ID} id={post.ID} image={post.image_url} tags={post.tags} title={post.title} date={post.date} viewed={post.viewed}/>
+                            <PostCard key={post.id} id={post.id} image={post.image_url} tags={post.tags} title={post.title} date={post.date} viewed={post.viewed}/>
                         ))
                     }
                 </SimpleGrid>
