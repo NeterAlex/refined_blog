@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: false,
     env: {
-        APP_ENV: process.env.APP_ENV
+        APP_ENV: 'production',
     },
     images: {
         remotePatterns: [{
@@ -12,9 +12,10 @@ const nextConfig = {
             pathname: '/static/**'
         }, {
             protocol: 'https',
-            hostname: 'apt.neteralex.cn',
+            hostname: 'api.neteralex.cn',
             port: '80',
             pathname: '/static/**'
+            ,
         }]
     }
 }
