@@ -11,6 +11,7 @@ import {UserAtom} from "@/store/User";
 import {useAtom} from "jotai";
 // @ts-ignore
 import ReactCaptchaa from "@/utils/captcha/captcha"
+import Head from "next/head";
 
 interface JWTInfo {
     exp: string
@@ -37,7 +38,11 @@ const LoginPage: Page = () => {
     })
 
     return (
+
         <Container size={420} mt={120} mb={220}>
+            <Head>
+                <title>Refined | 登录</title>
+            </Head>
             <Title align="center" sx={(theme: any) => ({fontFamily: `${theme.fontFamily}`, fontWeight: 900})}>
                 欢迎
             </Title>

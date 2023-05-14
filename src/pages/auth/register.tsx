@@ -5,10 +5,11 @@ import {useDisclosure} from "@mantine/hooks";
 import axios from "axios";
 import qs from "querystring"
 import {notifications} from "@mantine/notifications";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Page} from "@/common/types";
 // @ts-ignore
 import ReactCaptchaa from "@/utils/captcha/captcha"
+import Head from "next/head";
 
 const RegisterPage: Page = () => {
     const router = useRouter()
@@ -136,6 +137,9 @@ const RegisterPage: Page = () => {
 
     return (
         <Container size={420} mt={60}>
+            <Head>
+                <title>Refined | 注册</title>
+            </Head>
             <Title
                 align="center"
                 sx={(theme) => ({fontFamily: `${theme.fontFamily}`, fontWeight: 900})}

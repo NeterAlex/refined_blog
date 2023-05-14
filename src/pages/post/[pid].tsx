@@ -2,12 +2,13 @@ import {Badge, Card, Container, Divider, Group, Image, rem, Skeleton, Text, useM
 import {useRouter} from "next/router";
 import MdEditor, {ExposeParam} from 'md-editor-rt';
 import 'md-editor-rt/lib/style.css';
-import {useRef} from "react";
+import React, {useRef} from "react";
 import {IconCalendar, IconEye, IconTags, IconUser} from "@tabler/icons-react";
 import CommentList from "@/components/comment/CommentList";
 import {Page} from "@/common/types";
 import {animated, useSpring} from "@react-spring/web";
 import {usePost} from "@/hooks/Request";
+import Head from "next/head";
 
 const PostPage: Page = () => {
     //Router
@@ -36,6 +37,9 @@ const PostPage: Page = () => {
         return (
             <animated.div style={springs}>
                 <Container my="md">
+                    <Head>
+                        <title>Refined |</title>
+                    </Head>
                     <Card shadow="md" radius="md" mt="xl">
                         <Card.Section mb="xl">
                             <Skeleton animate={true} height={180}/>
@@ -67,6 +71,9 @@ const PostPage: Page = () => {
         <animated.div style={springs}>
 
             <Container my="md">
+                <Head>
+                    <title>Refined | {post.posts[0].title}</title>
+                </Head>
                 <Card shadow="md" radius="md" mt="xl">
                     <Card.Section mb="xl">
                         <Image src={post.posts[0].image_url} alt={post.posts[0].title} height={180}/>

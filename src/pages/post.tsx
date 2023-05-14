@@ -5,6 +5,8 @@ import {usePostLatest} from "@/hooks/Request";
 import {useRouter} from "next/router";
 import {IconArrowRight} from "@tabler/icons-react";
 import {animated, useSpring} from "@react-spring/web";
+import Head from "next/head";
+import React from "react";
 
 const PostPage: Page = () => {
     const {latest, isLoading, error} = usePostLatest()
@@ -20,6 +22,9 @@ const PostPage: Page = () => {
     const globalBase = appEnv === 'production' ? 'https://api.neteralex.cn' : 'http://localhost:8022'
     return (
         <Container mt={rem(30)}>
+            <Head>
+                <title>Refined | 文章</title>
+            </Head>
             <animated.div style={springs}>
                 <SimpleGrid my={rem(30)} cols={2} spacing="md" breakpoints={[{maxWidth: 'sm', cols: 1}]}>
                     <Image alt={'preview'} height={"35vh"} radius={'md'} src={latest.post.image_url}/>

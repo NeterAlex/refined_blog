@@ -4,6 +4,8 @@ import {IconArchive, IconArticle} from "@tabler/icons-react";
 import {useAllPosts} from "@/hooks/Request";
 import Link from "next/link";
 import {animated, useSpring} from "@react-spring/web";
+import Head from "next/head";
+import React from "react";
 
 const ArchivePage: Page = () => {
     const {posts, isLoading, error} = useAllPosts()
@@ -20,6 +22,9 @@ const ArchivePage: Page = () => {
     return (
         <animated.div style={springs}>
             <Container>
+                <Head>
+                    <title>Refined | 归档</title>
+                </Head>
                 <Card withBorder shadow="sm" mt={30} radius="md">
                     <Card.Section mb="xl">
                         <Image src={'https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&w=1600'} alt={'bg'} height={120}/>

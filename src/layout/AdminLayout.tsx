@@ -3,6 +3,8 @@ import {Button, Overlay} from "@mantine/core";
 import {useRouter} from "next/router";
 import {useAtom} from "jotai/index";
 import {UserAtom} from "@/store/User";
+import Head from "next/head";
+import React from "react";
 
 
 export default function AdminLayout({children}: any) {
@@ -13,6 +15,9 @@ export default function AdminLayout({children}: any) {
     if (result !== 'admin') {
         return (
             <>
+                <Head>
+                    <title>Refined | 管理</title>
+                </Head>
                 {
                     result !== 'admin' && <Overlay blur={15} center>
                         <Button color="blue" radius="xl" onClick={() => router.push('/')}>

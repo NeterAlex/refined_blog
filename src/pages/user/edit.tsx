@@ -7,6 +7,8 @@ import {animated, useSpring} from "@react-spring/web";
 import {UserAtom} from "@/store/User";
 import {useAtom} from "jotai";
 import {notifications} from "@mantine/notifications";
+import Head from "next/head";
+import React from "react";
 
 const UserPage: Page = () => {
     const router = useRouter()
@@ -22,6 +24,9 @@ const UserPage: Page = () => {
     if (isLoading || error) {
         return (
             <Container py={rem(50)}>
+                <Head>
+                    <title>Refined | 用户管理</title>
+                </Head>
                 <Paper radius={"md"}>
                     <Skeleton h={600} animate={true}/>
                 </Paper>
